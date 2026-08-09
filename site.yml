@@ -1,0 +1,42 @@
+# 网站配置数据
+site:
+  title: 软件优选站 - 专业软件下载平台
+  keywords: 软件下载,免费软件,电脑软件,办公软件,开发工具,浏览器,媒体播放器
+  description: 软件优选站提供优质电脑软件下载，包括浏览器、办公软件、开发工具、媒体播放器等各类软件，安全无毒，官方下载。
+  logo_text: "🧩 软件优选站"
+  slogan: "高效 · 纯净 · 专业软件管家"
+  welcome_text: "✨ 请从左侧选择一个软件，查看详细介绍与下载"
+  copyright_text: "© 2025 软件优选站 | 分享优质电脑软件，提升工作效率。资源来自官方，安全可靠。"
+  copyright_link_text: "关于我们"
+  copyright_link_url: "#"
+
+# 网盘配置
+pan_config:
+  baidu:
+    name: 百度网盘
+    icon: "☁️"
+    class: "baidu"
+  quark:
+    name: 夸克网盘
+    icon: "⚡"
+    class: "quark"
+  "123pan":
+    name: 123云盘
+    icon: "🔢"
+    class: "other"
+  aliyun:
+    name: 阿里云盘
+    icon: "📦"
+    class: "aliyun"
+  lanzou:
+    name: 蓝奏云
+    icon: "🔵"
+    class: "lanzou"
+  xunlei:
+    name: 迅雷网盘
+    icon: "⚡"
+    class: "other"
+  other:
+    name: 其他网盘
+    icon: "🔗"
+    class: "other"

@@ -1,0 +1,182 @@
+# 软件数据
+- id: 1
+  category_id: 1
+  name: Google Chrome
+  description: "极速、稳定、安全，占据全球主导地位的现代浏览器，开发者工具强大。"
+  download_url: "https://www.google.com/chrome/"
+  pan_links:
+    baidu:
+      url: "https://pan.baidu.com/s/123xyz"
+      code: "abcd"
+    aliyun:
+      url: "https://www.aliyundrive.com/s/xyz"
+      code: ""
+  icon: ""
+  sort_order: 1
+  slug: "google-chrome"
+  software_number: "1"
+  is_recommended: 1
+  recommend_order: 1
+  seo_keywords: "Chrome,谷歌浏览器,网页浏览器,Google浏览器"
+  created_at: "2025-01-01 00:00:00"
+  updated_at: "2025-01-01 00:00:00"
+  versions:
+    - id: 1
+      software_id: 1
+      version_name: "最新版"
+      version_number: "120.0.6099.109"
+      description: "最新稳定版本，包含安全更新和性能优化"
+      download_url: "https://www.google.com/chrome/"
+      pan_links:
+        baidu:
+          url: "https://pan.baidu.com/s/123xyz"
+          code: "abcd"
+        aliyun:
+          url: "https://www.aliyundrive.com/s/xyz"
+          code: ""
+      is_latest: 1
+      is_active: 1
+      download_count: 1520
+  screenshots:
+    - id: 1
+      software_id: 1
+      image_url: "https://example.com/screenshots/chrome1.jpg"
+      sort_order: 1
+
+- id: 2
+  category_id: 1
+  name: Mozilla Firefox
+  description: "开源隐私浏览器，定制性强，追踪保护功能出色。"
+  download_url: "https://www.mozilla.org/firefox/"
+  pan_links:
+    lanzou:
+      url: "https://www.lanzou.com/xyz"
+      code: ""
+  icon: ""
+  sort_order: 2
+  slug: "mozilla-firefox"
+  software_number: "2"
+  is_recommended: 1
+  recommend_order: 2
+  seo_keywords: "Firefox,火狐浏览器,开源浏览器,隐私保护"
+  created_at: "2025-01-01 00:00:00"
+  updated_at: "2025-01-01 00:00:00"
+  versions: []
+  screenshots: []
+
+- id: 3
+  category_id: 2
+  name: LibreOffice
+  description: "完全免费开源的办公套件，兼容MS Office格式，包含Writer, Calc等。"
+  download_url: "https://www.libreoffice.org/download/"
+  pan_links:
+    quark:
+      url: "https://pan.quark.cn/s/xyz"
+      code: "1234"
+  icon: ""
+  sort_order: 1
+  slug: "libreoffice"
+  software_number: "3"
+  is_recommended: 1
+  recommend_order: 3
+  seo_keywords: "LibreOffice,开源办公软件,免费Office,文档编辑"
+  created_at: "2025-01-01 00:00:00"
+  updated_at: "2025-01-01 00:00:00"
+  versions: []
+  screenshots: []
+
+- id: 4
+  category_id: 2
+  name: WPS Office
+  description: "国民级办公软件，轻巧高效，支持云端协作。"
+  download_url: "https://www.wps.cn/"
+  pan_links: {}
+  icon: ""
+  sort_order: 2
+  slug: "wps-office"
+  software_number: "4"
+  is_recommended: 1
+  recommend_order: 4
+  seo_keywords: "WPS,金山WPS,办公软件,表格处理,文档编辑"
+  created_at: "2025-01-01 00:00:00"
+  updated_at: "2025-01-01 00:00:00"
+  versions: []
+  screenshots: []
+
+- id: 5
+  category_id: 3
+  name: Visual Studio Code
+  description: "微软出品，轻量但功能强大的代码编辑器，海量插件。"
+  download_url: "https://code.visualstudio.com/"
+  pan_links:
+    baidu:
+      url: "https://pan.baidu.com/s/vscode"
+      code: "vscode"
+    aliyun:
+      url: "https://www.aliyundrive.com/s/vscode"
+      code: ""
+  icon: ""
+  sort_order: 1
+  slug: "visual-studio-code"
+  software_number: "5"
+  is_recommended: 1
+  recommend_order: 5
+  seo_keywords: "VSCode,代码编辑器,IDE,开发工具,编程软件"
+  created_at: "2025-01-01 00:00:00"
+  updated_at: "2025-01-01 00:00:00"
+  versions: []
+  screenshots: []
+
+- id: 6
+  category_id: 3
+  name: Git
+  description: "分布式版本控制系统，协作开发必备。"
+  download_url: "https://git-scm.com/downloads"
+  pan_links: {}
+  icon: ""
+  sort_order: 2
+  slug: "git"
+  software_number: "6"
+  is_recommended: 0
+  recommend_order: 0
+  seo_keywords: "Git,版本控制,代码管理,协作开发,开发工具"
+  created_at: "2025-01-01 00:00:00"
+  updated_at: "2025-01-01 00:00:00"
+  versions: []
+  screenshots: []
+
+- id: 7
+  category_id: 4
+  name: VLC Media Player
+  description: "万能播放器，支持一切音视频格式，开源免费。"
+  download_url: "https://www.videolan.org/vlc/"
+  pan_links: {}
+  icon: ""
+  sort_order: 1
+  slug: "vlc-media-player"
+  software_number: "7"
+  is_recommended: 1
+  recommend_order: 6
+  seo_keywords: "VLC,媒体播放器,视频播放,音频播放,开源播放器"
+  created_at: "2025-01-01 00:00:00"
+  updated_at: "2025-01-01 00:00:00"
+  versions: []
+  screenshots: []
+
+  - id: 8
+  category_id: 4
+  name: VLC Media Player8
+  description: "88万能播放器，支持一切音视频格式，开源免费。"
+  download_url: "https://www.videolan.org/vlc/"
+  pan_links: {}
+  icon: ""
+  sort_order: 1
+  slug: "vlc-media-player"
+  software_number: "8"
+  is_recommended: 1
+  recommend_order: 8
+  seo_keywords: "VLC,媒体播放器,视频播放,音频播放,开源播放器"
+  created_at: "2025-01-01 00:00:00"
+  updated_at: "2025-01-01 00:00:00"
+  versions: []
+  screenshots: []

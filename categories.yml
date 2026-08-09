@@ -1,0 +1,20 @@
+# 分类数据
+- id: 1
+  name: 浏览器
+  sort_order: 1
+  slug: browsers
+
+- id: 2
+  name: 办公软件
+  sort_order: 2
+  slug: office
+
+- id: 3
+  name: 开发工具
+  sort_order: 3
+  slug: development
+
+- id: 4
+  name: 媒体播放
+  sort_order: 4
+  slug: media
