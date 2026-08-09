@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>软件优选站 - 专业软件下载平台</title>
+    <meta name="keywords" content="软件下载,免费软件,电脑软件,办公软件,开发工具,浏览器,媒体播放器">
+    <meta name="description" content="软件优选站提供优质电脑软件下载，包括浏览器、办公软件、开发工具、媒体播放器等各类软件，安全无毒，官方下载。">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+            background: #f4f7fc;
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .app-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #0f172a;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .nav-link {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 8px 12px;
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box:focus-within {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.4);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.02);
+        }
+
+        #searchInput {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 12px 16px;
+            font-size: 1rem;
+            width: 280px;
+            outline: none;
+            font-weight: 500;
+        }
+
+        #searchInput::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 400;
+        }
+
+        #searchInput:focus {
+            width: 320px;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: 0.2s;
+            font-weight: 600;
+            min-width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-btn:hover {
+            background: linear-gradient(135deg, #5a67d8, #6b46c1);
+            transform: scale(1.05);
+        }
+
+        .logo h1 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #e2e8f0, #a5f3fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo p {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .main-layout {
+            display: flex;
+            flex: 1;
+            padding: 28px 24px;
+            gap: 28px;
+            flex-wrap: wrap;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            flex: 1.2;
+            min-width: 280px;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+            padding: 1.2rem 0;
+            height: fit-content;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 0 1.4rem 0.9rem 1.4rem;
+            border-bottom: 2px solid #eef2ff;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-list {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .category-item {
+            border-bottom: 1px solid #eef2f6;
+        }
+
+        .category-title {
+            padding: 0.9rem 1.4rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: white;
+            transition: 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-title:hover {
+            background: #f8fafc;
+        }
+
+        .arrow {
+            font-size: 0.7rem;
+            transition: transform 0.2s;
+            color: #64748b;
+        }
+
+        .arrow.expanded {
+            transform: rotate(90deg);
+        }
+
+        .software-sublist {
+            list-style: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #fafcff;
+        }
+
+        .software-sublist.show {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .software-item {
+            padding: 0.7rem 1.4rem 0.7rem 2.5rem;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .software-item:hover {
+            background: #eef2ff;
+            border-left-color: #3b82f6;
+        }
+
+        .software-item.active {
+            background: #eef2ff;
+            border-left-color: #3b82f6;
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .software-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .content-area {
+            flex: 3;
+            min-width: 300px;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+            padding: 2rem;
+            position: relative;
+            overflow-y: auto;
+            max-height: calc(100vh - 180px);
+        }
+
+        .software-detail h2 {
+            font-size: 1.9rem;
+            margin-bottom: 1.2rem;
+            color: #0f172a;
+            border-left: 5px solid #f97316;
+            padding-left: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .software-detail-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .detail-description {
+            background: #f8fafc;
+            padding: 1.4rem;
+            border-radius: 20px;
+            margin: 1.5rem 0;
+            line-height: 1.65;
+            white-space: pre-wrap;
+            font-size: 1rem;
+            color: #1e293b;
+        }
+
+        .download-section {
+            margin-top: 20px;
+        }
+
+        .download-section h3 {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .version-selector {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 16px;
+            border: 1px solid #bae6fd;
+        }
+
+        .version-selector h3 {
+            font-size: 1.1rem;
+            color: #0369a1;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .version-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .version-tab {
+            padding: 10px 20px;
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .version-tab:hover {
+            border-color: #3b82f6;
+            background: #f8fafc;
+        }
+
+        .version-tab.active {
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            color: white;
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .version-tab-badge {
+            background: #22c55e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .pan-links-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .pan-link-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 20px;
+            color: white;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .pan-link-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .pan-link-card.baidu {
+            background: linear-gradient(135deg, #2932e1 0%, #485a63 100%);
+        }
+
+        .pan-link-card.baidu:hover {
+            box-shadow: 0 15px 35px rgba(72, 90, 99, 0.4);
+        }
+
+        .pan-link-card.quark {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .pan-link-card.aliyun {
+            background: linear-gradient(135deg, #0c4da2 0%, #1e5aa1 100%);
+        }
+
+        .pan-link-card.lanzou {
+            background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+        }
+
+        .pan-link-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .pan-link-icon {
+            font-size: 1.5rem;
+        }
+
+        .pan-link-body {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .pan-link-btn-small {
+            flex: 1;
+            min-width: 140px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pan-link-btn-small:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .pan-code-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .pan-code-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+
+        .pan-code-value {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .copy-code-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 14px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .copy-code-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .copy-code-btn.copied {
+            background: #22c55e;
+            border-color: #16a34a;
+        }
+
+        .official-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8fafc;
+            color: #475569;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: 0.2s;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 15px;
+        }
+
+        .official-link:hover {
+            background: #eef2ff;
+            border-color: #3b82f6;
+        }
+
+        .empty-tip {
+            color: #94a3b8;
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            text-align: center;
+            padding: 1.2rem 1rem;
+            font-size: 0.85rem;
+            border-top: 1px solid #1e293b;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: #94a3f0;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* 默认内容区域 */
+        .default-content {
+            padding: 2rem;
+        }
+
+        /* 返回按钮 */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .back-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-section h2 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-section p {
+            color: #64748b;
+            font-size: 1rem;
+        }
+
+        /* 热门推荐网格 */
+        .rank-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            padding: 0 1rem 1rem;
+        }
+
+        .rank-loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: #94a3b8;
+        }
+
+        .rank-item {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: 1px solid #f1f5f9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rank-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .rank-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.15);
+            border-color: #e2e8f0;
+        }
+
+        .rank-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .rank-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            width: 100%;
+        }
+
+        .rank-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .rank-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .rank-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #1e293b;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+
+        .rank-desc {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .empty-rank {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: #94a3b8;
+        }
+
+        /* 软件截图样式 */
+        .software-screenshots {
+            margin-top: 20px;
+        }
+
+        .software-screenshots h3 {
+            font-size: 1.1rem;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .screenshot-thumb {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            aspect-ratio: 16/9;
+        }
+
+        .screenshot-thumb:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+
+        .screenshot-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 截图灯箱 */
+        .screenshot-lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+
+        .screenshot-lightbox.active {
+            display: flex;
+        }
+
+        .screenshot-lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .screenshot-lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .header-nav {
+                justify-content: space-between;
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .search-box {
+                flex: 1;
+                max-width: none;
+                min-width: 250px;
+            }
+
+            #searchInput {
+                width: 100%;
+                flex: 1;
+                padding: 10px 14px;
+            }
+
+            #searchInput:focus {
+                width: auto;
+            }
+
+            .search-btn {
+                padding: 10px 16px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .main-layout {
+                flex-direction: column;
+                padding: 12px 8px;
+                gap: 12px;
+            }
+
+            .content-area {
+                max-height: none;
+                padding: 0.5rem;
+            }
+
+            .default-content {
+                padding: 0;
+            }
+
+            .welcome-section {
+                margin-bottom: 0.8rem;
+                padding: 0 0.5rem;
+            }
+
+            .welcome-section h2 {
+                font-size: 1.4rem;
+            }
+
+            .welcome-section p {
+                font-size: 0.9rem;
+            }
+
+            .rank-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+                padding: 0 0 1rem;
+            }
+
+            .rank-item {
+                padding: 10px 8px;
+            }
+
+            .pan-links-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-wrapper">
+        <div class="header">
+            <div class="logo">
+                <h1 id="siteLogo">🧩 软件优选站</h1>
+                <p id="siteSlogan">高效 · 纯净 · 专业软件管家</p>
+            </div>
+            <nav class="header-nav">
+                <a href="#" class="nav-link" onclick="showRecommended(); return false;">🔥 热门推荐</a>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 输入序号或软件名称搜索" onkeyup="handleSearch(event)" autocomplete="off">
+                    <button class="search-btn" onclick="performSearch(document.getElementById('searchInput').value.trim())" aria-label="搜索">🔍</button>
+                </div>
+            </nav>
+        </div>
+
+        <div class="main-layout">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <span>📂 全部分类</span>
+                </div>
+                <ul class="category-list" id="categoryList"></ul>
+            </div>
+
+            <div class="content-area" id="contentArea">
+                <!-- 默认显示热门推荐 -->
+                <div class="default-content" id="defaultContent">
+                    <div class="welcome-section">
+                        <h2>🔥 热门推荐</h2>
+                        <p>精选优质软件，提升工作效率</p>
+                    </div>
+                    <div class="rank-grid" id="rankList">
+                        <div class="rank-loading">加载中...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer" id="footerCopyright"></div>
+    </div>
+
+    <!-- 截图灯箱 -->
+    <div id="screenshotLightbox" class="screenshot-lightbox" onclick="closeScreenshotLightbox()">
+        <button class="screenshot-lightbox-close">&times;</button>
+        <img id="lightboxImage" src="" alt="软件截图" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+        // 完整的业务数据结构
+        const siteData = {
+            settings: {
+                site_title: '软件优选站 - 专业软件下载平台',
+                site_keywords: '软件下载,免费软件,电脑软件,办公软件,开发工具,浏览器,媒体播放器',
+                site_description: '软件优选站提供优质电脑软件下载，包括浏览器、办公软件、开发工具、媒体播放器等各类软件，安全无毒，官方下载。',
+                site_logo_text: '🧩 软件优选站',
+                site_slogan: '高效 · 纯净 · 专业软件管家',
+                home_welcome_text: '✨ 请从左侧选择一个软件，查看详细介绍与下载',
+                copyright_text: '© 2025 软件优选站 | 分享优质电脑软件，提升工作效率。资源来自官方，安全可靠。',
+                copyright_link_text: '关于我们',
+                copyright_link_url: '#'
+            },
+            categories: [
+                {
+                    id: 1,
+                    name: '浏览器',
+                    sort_order: 1,
+                    softwareList: [
+                        {
+                            id: 1,
+                            category_id: 1,
+                            name: 'Google Chrome',
+                            description: '极速、稳定、安全，占据全球主导地位的现代浏览器，开发者工具强大。',
+                            download_url: 'https://www.google.com/chrome/',
+                            pan_links: '{"baidu":{"url":"https://pan.baidu.com/s/123xyz","code":"abcd"},"aliyun":{"url":"https://www.aliyundrive.com/s/xyz","code":""}}',
+                            icon: '',
+                            sort_order: 1,
+                            slug: 'google-chrome',
+                            software_number: '1',
+                            is_recommended: 1,
+                            recommend_order: 1,
+                            seo_keywords: 'Chrome,谷歌浏览器,网页浏览器,Google浏览器',
+                            created_at: '2025-01-01 00:00:00',
+                            updated_at: '2025-01-01 00:00:00',
+                            versions: [
+                                {
+                                    id: 1,
+                                    software_id: 1,
+                                    version_name: '最新版',
+                                    version_number: '120.0.6099.109',
+                                    description: '最新稳定版本，包含安全更新和性能优化',
+                                    download_url: 'https://www.google.com/chrome/',
+                                    pan_links: '{"baidu":{"url":"https://pan.baidu.com/s/123xyz","code":"abcd"},"aliyun":{"url":"https://www.aliyundrive.com/s/xyz","code":""}}',
+                                    is_latest: 1,
+                                    is_active: 1,
+                                    download_count: 1520
+                                }
+                            ],
+                            screenshots: [
+                                {
+                                    id: 1,
+                                    software_id: 1,
+                                    image_url: 'https://example.com/screenshots/chrome1.jpg',
+                                    sort_order: 1
+                                }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            category_id: 1,
+                            name: 'Mozilla Firefox',
+                            description: '开源隐私浏览器，定制性强，追踪保护功能出色。',
+                            download_url: 'https://www.mozilla.org/firefox/',
+                            pan_links: '{"lanzou":{"url":"https://www.lanzou.com/xyz","code":""}}',
+                            icon: '',
+                            sort_order: 2,
+                            slug: 'mozilla-firefox',
+                            software_number: '2',
+                            is_recommended: 1,
+                            recommend_order: 2,
+                            seo_keywords: 'Firefox,火狐浏览器,开源浏览器,隐私保护',
+                            created_at: '2025-01-01 00:00:00',
+                            updated_at: '2025-01-01 00:00:00',
+                            versions: [],
+                            screenshots: []
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: '办公软件',
+                    sort_order: 2,
+                    softwareList: [
+                        {
+                            id: 3,
+                            category_id: 2,
+                            name: 'LibreOffice',
+                            description: '完全免费开源的办公套件，兼容MS Office格式，包含Writer, Calc等。',
+                            download_url: 'https://www.libreoffice.org/download/',
+                            pan_links: '{"quark":{"url":"https://pan.quark.cn/s/xyz","code":"1234"}}',
+                            icon: '',
+                            sort_order: 1,
+                            slug: 'libreoffice',
+                            software_number: '3',
+                            is_recommended: 1,
+                            recommend_order: 3,
+                            seo_keywords: 'LibreOffice,开源办公软件,免费Office,文档编辑',
+                            created_at: '2025-01-01 00:00:00',
+                            updated_at: '2025-01-01 00:00:00',
+                            versions: [],
+                            screenshots: []
+                        },
+                        {
+                            id: 4,
+                            category_id: 2,
+                            name: 'WPS Office',
+                            description: '国民级办公软件，轻巧高效，支持云端协作。',
+                            download_url: 'https://www.wps.cn/',
+                            pan_links: '{}',
+                            icon: '',
+                            sort_order: 2,
+                            slug: 'wps-office',
+                            software_number: '4',
+                            is_recommended: 1,
+                            recommend_order: 4,
+                            seo_keywords: 'WPS,金山WPS,办公软件,表格处理,文档编辑',
+                            created_at: '2025-01-01 00:00:00',
+                            updated_at: '2025-01-01 00:00:00',
+                            versions: [],
+                            screenshots: []
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    name: '开发工具',
+                    sort_order: 3,
+                    softwareList: [
+                        {
+                            id: 5,
+                            category_id: 3,
+                            name: 'Visual Studio Code',
+                            description: '微软出品，轻量但功能强大的代码编辑器，海量插件。',
+                            download_url: 'https://code.visualstudio.com/',
+                            pan_links: '{"baidu":{"url":"https://pan.baidu.com/s/vscode","code":"vscode"},"aliyun":{"url":"https://www.aliyundrive.com/s/vscode","code":""}}',
+                            icon: '',
+                            sort_order: 1,
+                            slug: 'visual-studio-code',
+                            software_number: '5',
+                            is_recommended: 1,
+                            recommend_order: 5,
+                            seo_keywords: 'VSCode,代码编辑器,IDE,开发工具,编程软件',
+                            created_at: '2025-01-01 00:00:00',
+                            updated_at: '2025-01-01 00:00:00',
+                            versions: [],
+                            screenshots: []
+                        },
+                        {
+                            id: 6,
+                            category_id: 3,
+                            name: 'Git',
+                            description: '分布式版本控制系统，协作开发必备。',
+                            download_url: 'https://git-scm.com/downloads',
+                            pan_links: '{}',
+                            icon: '',
+                            sort_order: 2,
+                            slug: 'git',
+                            software_number: '6',
+                            is_recommended: 0,
+                            recommend_order: 0,
+                            seo_keywords: 'Git,版本控制,代码管理,协作开发,开发工具',
+                            created_at: '2025-01-01 00:00:00',
+                            updated_at: '2025-01-01 00:00:00',
+                            versions: [],
+                            screenshots: []
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    name: '媒体播放',
+                    sort_order: 4,
+                    softwareList: [
+                        {
+                            id: 7,
+                            category_id: 4,
+                            name: 'VLC Media Player',
+                            description: '万能播放器，支持一切音视频格式，开源免费。',
+                            download_url: 'https://www.videolan.org/vlc/',
+                            pan_links: '{}',
+                            icon: '',
+                            sort_order: 1,
+                            slug: 'vlc-media-player',
+                            software_number: '7',
+                            is_recommended: 1,
+                            recommend_order: 6,
+                            seo_keywords: 'VLC,媒体播放器,视频播放,音频播放,开源播放器',
+                            created_at: '2025-01-01 00:00:00',
+                            updated_at: '2025-01-01 00:00:00',
+                            versions: [],
+                            screenshots: []
+                        }
+                    ]
+                }
+            ]
+        };
+
+        let categories = siteData.categories;
+        let settings = siteData.settings;
+        let currentSelected = { categoryId: null, softwareId: null };
+        let expandedCategories = new Set();
+
+        function init() {
+            renderPageMeta();
+            renderSidebar();
+            renderFooter();
+            loadRecommendedList();
+
+            // 检查 URL 参数，如果有 slug 则显示对应软件
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
+            if (slug) {
+                setTimeout(() => loadSoftwareBySlug(slug), 100);
+            }
+        }
+
+        function loadSoftwareBySlug(slug) {
+            for (const cat of categories) {
+                const software = cat.softwareList.find(s => s.slug === slug);
+                if (software) {
+                    expandedCategories.add(cat.id);
+                    currentSelected = { categoryId: cat.id, softwareId: software.id };
+                    renderSidebar();
+                    renderSoftwareDetail();
+                    hideDefaultContent();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function hideDefaultContent() {
+            const defaultContent = document.getElementById('defaultContent');
+            if (defaultContent) {
+                defaultContent.style.display = 'none';
+            }
+        }
+
+        function renderPageMeta() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (!urlParams.get('slug')) {
+                document.title = settings.site_title || '软件库 - 专业软件推荐';
+            }
+            document.getElementById('siteLogo').textContent = settings.site_logo_text || '🧩 软件优选站';
+            document.getElementById('siteSlogan').textContent = settings.site_slogan || '高效 · 纯净 · 专业软件管家';
+        }
+
+        function renderSidebar() {
+            const container = document.getElementById('categoryList');
+            container.innerHTML = '';
+
+            categories.forEach(cat => {
+                const li = document.createElement('li');
+                li.className = 'category-item';
+
+                const isExpanded = expandedCategories.has(cat.id);
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'category-title';
+                titleDiv.innerHTML = `
+                    <span class="category-name">📁 ${escapeHtml(cat.name)}</span>
+                    <span class="arrow ${isExpanded ? 'expanded' : ''}">▶</span>
+                `;
+
+                const subUl = document.createElement('ul');
+                subUl.className = `software-sublist ${isExpanded ? 'show' : ''}`;
+
+                cat.softwareList.forEach(soft => {
+                    const softLi = document.createElement('li');
+                    const isActive = currentSelected.categoryId === cat.id && currentSelected.softwareId === soft.id;
+                    softLi.className = `software-item ${isActive ? 'active' : ''}`;
+
+                    const numberDisplay = soft.software_number ? `#${soft.software_number} ` : '';
+                    const iconDisplay = soft.icon ? `<img src="${soft.icon}" class="software-icon" alt="">` : '';
+
+                    softLi.innerHTML = `${iconDisplay}<span>${numberDisplay}${escapeHtml(soft.name)}</span>`;
+                    softLi.onclick = () => selectSoftware(cat.id, soft.id);
+                    subUl.appendChild(softLi);
+                });
+
+                titleDiv.onclick = () => {
+                    if (expandedCategories.has(cat.id)) {
+                        expandedCategories.delete(cat.id);
+                    } else {
+                        expandedCategories.add(cat.id);
+                    }
+                    renderSidebar();
+                };
+
+                li.appendChild(titleDiv);
+                li.appendChild(subUl);
+                container.appendChild(li);
+            });
+        }
+
+        function selectSoftware(categoryId, softwareId) {
+            currentSelected = { categoryId, softwareId };
+            renderSidebar();
+            renderSoftwareDetail();
+            hideDefaultContent();
+
+            const category = categories.find(c => c.id === categoryId);
+            const software = category?.softwareList.find(s => s.id === softwareId);
+            if (software && software.slug) {
+                const newUrl = window.location.pathname + '?slug=' + encodeURIComponent(software.slug);
+                history.pushState({ categoryId, softwareId }, software.name, newUrl);
+            }
+        }
+
+        function showDefaultContent() {
+            currentSelected = { categoryId: null, softwareId: null };
+            renderSidebar();
+            history.pushState({ categoryId: null, softwareId: null }, '', window.location.pathname);
+
+            document.title = settings.site_title || '软件库 - 专业软件推荐';
+
+            let defaultContent = document.getElementById('defaultContent');
+            const contentArea = document.getElementById('contentArea');
+
+            if (!defaultContent) {
+                contentArea.innerHTML = `
+                    <div class="default-content" id="defaultContent">
+                        <div class="welcome-section">
+                            <h2>🔥 热门推荐</h2>
+                            <p>精选优质软件，提升工作效率</p>
+                        </div>
+                        <div class="rank-grid" id="rankList">
+                            <div class="rank-loading">加载中...</div>
+                        </div>
+                    </div>
+                `;
+                loadRecommendedList();
+            } else {
+                defaultContent.style.display = 'block';
+                const existingDetail = document.querySelector('.software-detail');
+                if (existingDetail) {
+                    existingDetail.remove();
+                }
+            }
+        }
+
+        function renderSoftwareDetail() {
+            const contentDiv = document.getElementById('contentArea');
+            const category = categories.find(c => c.id === currentSelected.categoryId);
+            const software = category?.softwareList.find(s => s.id === currentSelected.softwareId);
+
+            const existingDetail = document.querySelector('.software-detail');
+            if (existingDetail) {
+                existingDetail.remove();
+            }
+
+            if (!software) {
+                return;
+            }
+
+            document.title = `${software.name} - ${category?.name || ''} - ${settings.site_title || '软件库'}`;
+
+            const iconDisplay = software.icon ? `<img src="${software.icon}" class="software-detail-icon" alt="">` : '';
+
+            contentDiv.innerHTML = `
+                <div class="software-detail">
+                    <button class="back-button" onclick="showDefaultContent()"><span>← 返回推荐</span></button>
+                    <h2>${iconDisplay}✨ ${software.software_number ? `<span style="color:#3b82f6;font-weight:600;">#${escapeHtml(software.software_number)}</span> ` : ''}${escapeHtml(software.name)}</h2>
+                    <div class="detail-description">${escapeHtml(software.description).replace(/\n/g, '<br>')}</div>
+                    <div id="versionContainer">加载版本信息...</div>
+                </div>
+            `;
+
+            // 处理版本和网盘链接
+            renderVersionContent(software);
+
+            // 加载截图
+            if (software.screenshots && software.screenshots.length > 0) {
+                renderScreenshots(software.screenshots);
+            }
+        }
+
+        function renderVersionContent(software) {
+            const container = document.getElementById('versionContainer');
+            if (!container) return;
+
+            const panConfig = {
+                baidu: { name: '百度网盘', icon: '☁️', class: 'baidu' },
+                quark: { name: '夸克网盘', icon: '⚡', class: 'quark' },
+                '123pan': { name: '123云盘', icon: '🔢', class: 'other' },
+                aliyun: { name: '阿里云盘', icon: '📦', class: 'aliyun' },
+                lanzou: { name: '蓝奏云', icon: '🔵', class: 'lanzou' },
+                xunlei: { name: '迅雷网盘', icon: '⚡', class: 'other' },
+                other: { name: '其他网盘', icon: '🔗', class: 'other' }
+            };
+
+            let html = '';
+
+            // 如果有版本数据，显示版本选择器
+            if (software.versions && software.versions.length > 0) {
+                const latestVersion = software.versions.find(v => v.is_latest === 1) || software.versions[0];
+
+                html += `<div class="version-selector">
+                    <h3>📚 选择版本</h3>
+                    <div class="version-tabs">`;
+
+                software.versions.forEach(version => {
+                    const isLatest = version.is_latest ? '<span class="version-tab-badge">最新</span>' : '';
+                    html += `<div class="version-tab ${version.is_latest ? 'active' : ''}">
+                        <span>${escapeHtml(version.version_name)}</span>
+                        ${isLatest}
+                    </div>`;
+                });
+
+                html += `</div>`;
+
+                if (latestVersion.description || latestVersion.version_number) {
+                    html += `<div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 15px;">
+                        <div style="font-weight: 600; color: #1e293b; margin-bottom: 10px;">
+                            ${latestVersion.is_latest ? '<span style="color: #22c55e;">⭐ 最新版本</span>' : ''}
+                            ${latestVersion.version_number ? `<span>${escapeHtml(latestVersion.version_number)}</span>` : ''}
+                        </div>
+                        ${latestVersion.description ? `<div style="color: #64748b; font-size: 0.9rem; line-height: 1.5;">${escapeHtml(latestVersion.description)}</div>` : ''}
+                    </div>`;
+                }
+
+                // 处理版本网盘链接
+                if (latestVersion.pan_links) {
+                    html += renderPanLinks(latestVersion.pan_links, software.name, latestVersion.version_name, panConfig, latestVersion.id);
+                }
+
+                if (latestVersion.download_url) {
+                    html += `<a href="${escapeHtml(latestVersion.download_url)}" target="_blank" class="official-link">🌐 官方网站</a>`;
+                }
+
+                html += `</div>`;
+            } else {
+                // 没有版本数据，直接显示软件的下载链接
+                if (software.download_url) {
+                    html += `<a href="${escapeHtml(software.download_url)}" target="_blank" class="official-link">🌐 官方网站</a>`;
+                }
+
+                // 处理软件网盘链接
+                if (software.pan_links) {
+                    html += `<div class="download-section">
+                        <h3>📥 ${escapeHtml(software.name)} 网盘下载</h3>`;
+                    html += renderPanLinks(software.pan_links, software.name, '', panConfig, software.id);
+                    html += `</div>`;
+                }
+            }
+
+            container.innerHTML = html;
+        }
+
+        function renderPanLinks(panLinksJson, softwareName, versionName, panConfig, uniqueId) {
+            let html = '<div class="pan-links-container">';
+
+            try {
+                const panData = JSON.parse(panLinksJson);
+                const panLinks = Object.values(panData).filter(pan => pan.url);
+
+                if (panLinks.length > 0) {
+                    panLinks.forEach((pan, index) => {
+                        const config = panConfig[pan.type] || panConfig.other;
+                        const uniqueIndex = `${uniqueId}_${index}`;
+
+                        html += `
+                            <div class="pan-link-card ${config.class}">
+                                <div class="pan-link-header">
+                                    <span class="pan-link-icon">${config.icon}</span>
+                                    <span>${config.name}</span>
+                                </div>
+                                <div class="pan-link-body">
+                                    <a href="${escapeHtml(pan.url)}" target="_blank" class="pan-link-btn-small">
+                                        <span>🔗 点击下载</span>
+                                    </a>
+                                    ${pan.code ? `
+                                        <div class="pan-code-row">
+                                            <span class="pan-code-label">提取码:</span>
+                                            <span class="pan-code-value" id="code_${uniqueIndex}">${escapeHtml(pan.code)}</span>
+                                            <button class="copy-code-btn" onclick="copyCode('code_${uniqueIndex}', this)">📋 复制</button>
+                                        </div>
+                                    ` : '<div style="color: rgba(255,255,255,0.6); font-size: 0.85rem; font-style: italic; padding-top: 4px;">无需提取码</div>'}
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            } catch (e) {
+                console.error('解析网盘链接失败:', e);
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function renderScreenshots(screenshots) {
+            const container = document.getElementById('versionContainer');
+            if (!container) return;
+
+            const screenshotsSection = document.createElement('div');
+            screenshotsSection.className = 'software-screenshots';
+
+            const screenshotsGrid = document.createElement('div');
+            screenshotsGrid.className = 'screenshots-grid';
+
+            screenshots.forEach(shot => {
+                const thumb = document.createElement('div');
+                thumb.className = 'screenshot-thumb';
+                thumb.onclick = () => openScreenshotLightbox(shot.image_url);
+
+                const img = document.createElement('img');
+                img.src = shot.image_url;
+                img.alt = '软件截图';
+
+                thumb.appendChild(img);
+                screenshotsGrid.appendChild(thumb);
+            });
+
+            screenshotsSection.innerHTML = '<h3>📸 软件截图</h3>';
+            screenshotsSection.appendChild(screenshotsGrid);
+
+            container.parentNode.insertBefore(screenshotsSection, container.nextSibling);
+        }
+
+        function openScreenshotLightbox(imageUrl) {
+            const lightbox = document.getElementById('screenshotLightbox');
+            const img = document.getElementById('lightboxImage');
+            img.src = imageUrl;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeScreenshotLightbox() {
+            const lightbox = document.getElementById('screenshotLightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeScreenshotLightbox();
+            }
+        });
+
+        function copyCode(elementId, button) {
+            const codeElement = document.getElementById(elementId);
+            const code = codeElement.textContent;
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(code).then(() => {
+                    showCopySuccess(button);
+                }).catch(() => {
+                    fallbackCopy(code, button);
+                });
+            } else {
+                fallbackCopy(code, button);
+            }
+        }
+
+        function fallbackCopy(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+
+            try {
+                document.execCommand('copy');
+                showCopySuccess(button);
+            } catch (err) {
+                console.error('复制失败:', err);
+                button.textContent = '❌ 复制失败';
+                setTimeout(() => {
+                    button.textContent = '📋 复制';
+                }, 2000);
+            }
+
+            document.body.removeChild(textarea);
+        }
+
+        function showCopySuccess(button) {
+            const originalText = button.textContent;
+            button.textContent = '✅ 已复制';
+            button.classList.add('copied');
+
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }
+
+        function renderFooter() {
+            const footerEl = document.getElementById('footerCopyright');
+            let linkHtml = '';
+            if (settings.copyright_link_text && settings.copyright_link_url) {
+                linkHtml = ` | <a href="${escapeHtml(settings.copyright_link_url)}" target="_blank">${escapeHtml(settings.copyright_link_text)}</a>`;
+            }
+            footerEl.innerHTML = `<div>${escapeHtml(settings.copyright_text || '')} ${linkHtml}</div>`;
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>"']/g, function(m) {
+                const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+                return map[m];
+            });
+        }
+
+        function loadRecommendedList() {
+            // 收集所有推荐软件
+            const recommendedSoftware = [];
+            categories.forEach(cat => {
+                cat.softwareList.forEach(soft => {
+                    if (soft.is_recommended) {
+                        recommendedSoftware.push({
+                            ...soft,
+                            categoryName: cat.name
+                        });
+                    }
+                });
+            });
+
+            // 按推荐排序和序号排序
+            recommendedSoftware.sort((a, b) => {
+                if (a.recommend_order !== b.recommend_order) {
+                    return a.recommend_order - b.recommend_order;
+                }
+                return (a.software_number || '999') - (b.software_number || '999');
+            });
+
+            renderRankList(recommendedSoftware);
+        }
+
+        function renderRankList(items) {
+            const container = document.getElementById('rankList');
+
+            if (!items || items.length === 0) {
+                container.innerHTML = '<div class="empty-rank">暂无推荐软件</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+
+            items.forEach((soft, index) => {
+                const div = document.createElement('div');
+                div.className = 'rank-item';
+                div.onclick = () => {
+                    const category = categories.find(c => c.name === soft.categoryName);
+                    if (category) {
+                        expandedCategories.add(category.id);
+                        currentSelected = { categoryId: category.id, softwareId: soft.id };
+                        renderSidebar();
+                        renderSoftwareDetail();
+                        const defaultContent = document.getElementById('defaultContent');
+                        if (defaultContent) {
+                            defaultContent.style.display = 'none';
+                        }
+                        if (soft.slug) {
+                            const newUrl = window.location.pathname + '?slug=' + encodeURIComponent(soft.slug);
+                            history.pushState({ categoryId: category.id, softwareId: soft.id }, soft.name, newUrl);
+                        }
+                    }
+                };
+
+                div.innerHTML = `
+                    <div class="rank-header">
+                        <div class="rank-info">
+                            ${soft.software_number ? `<div class="rank-number">#${escapeHtml(soft.software_number)}</div>` : `<div class="rank-number">${index + 1}</div>`}
+                            <div class="rank-name">${escapeHtml(soft.name)}</div>
+                        </div>
+                    </div>
+                    ${soft.description ? `<div class="rank-desc">${escapeHtml(soft.description)}</div>` : ''}
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function showRecommended() {
+            showDefaultContent();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 搜索功能
+        let searchTimeout = null;
+
+        function handleSearch(event) {
+            clearTimeout(searchTimeout);
+
+            const query = event.target.value.trim();
+
+            if (event.key === 'Escape') {
+                showRecommended();
+                document.getElementById('searchInput').value = '';
+                return;
+            }
+
+            if (event.key === 'Enter') {
+                performSearch(query);
+                return;
+            }
+
+            if (/^\d+$/.test(query) && query.length >= 1) {
+                searchTimeout = setTimeout(() => {
+                    performSearch(query);
+                }, 100);
+                return;
+            }
+
+            if (query.length < 2) {
+                showRecommended();
+                return;
+            }
+
+            searchTimeout = setTimeout(() => {
+                performSearch(query);
+            }, 500);
+        }
+
+        function performSearch(query) {
+            clearTimeout(searchTimeout);
+
+            if (!query || query.length < 1) {
+                showRecommended();
+                return;
+            }
+
+            const searchQuery = query.toLowerCase().trim();
+            const results = [];
+
+            categories.forEach(cat => {
+                cat.softwareList.forEach(soft => {
+                    const matchNumberExact = soft.software_number && soft.software_number.toString() === searchQuery;
+                    const matchNumberPartial = soft.software_number && soft.software_number.toString().includes(searchQuery);
+                    const matchName = soft.name && soft.name.toLowerCase().includes(searchQuery);
+                    const matchDesc = soft.description && soft.description.toLowerCase().includes(searchQuery);
+
+                    if (matchNumberExact || matchName || matchDesc || matchNumberPartial) {
+                        results.push({
+                            ...soft,
+                            categoryName: cat.name,
+                            categoryId: cat.id,
+                            isExactMatch: matchNumberExact
+                        });
+                    }
+                });
+            });
+
+            results.sort((a, b) => {
+                if (a.isExactMatch && !b.isExactMatch) return -1;
+                if (!a.isExactMatch && b.isExactMatch) return 1;
+                return 0;
+            });
+
+            displaySearchResults(results, query);
+        }
+
+        function displaySearchResults(results, query) {
+            const contentArea = document.getElementById('contentArea');
+
+            if (!contentArea) {
+                console.error('内容区域未找到');
+                return;
+            }
+
+            hideDefaultContent();
+
+            const existingDetail = document.querySelector('.software-detail');
+            if (existingDetail) {
+                existingDetail.remove();
+            }
+
+            if (results.length === 0) {
+                contentArea.innerHTML = `
+                    <div class="default-content">
+                        <div class="welcome-section">
+                            <h2>🔍 搜索结果</h2>
+                            <p>未找到序号或名称匹配 "${escapeHtml(query)}" 的软件</p>
+                        </div>
+                        <div class="empty-tip">
+                            <p>💡 提示：</p>
+                            <p style="margin-top: 10px;">• 输入序号（如 1、2、3）快速查找软件</p>
+                            <p>• 输入软件名称或描述关键词搜索</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                const exactMatch = results.find(r => r.isExactMatch);
+                const resultText = exactMatch
+                    ? `找到序号 #${escapeHtml(query)} 对应的软件`
+                    : `找到 ${results.length} 个匹配"${escapeHtml(query)}"的结果`;
+
+                contentArea.innerHTML = `
+                    <div class="default-content">
+                        <div class="welcome-section">
+                            <h2>🔍 搜索结果</h2>
+                            <p>${resultText}</p>
+                        </div>
+                        <div class="rank-grid" id="searchResultsGrid"></div>
+                    </div>
+                `;
+
+                const grid = document.getElementById('searchResultsGrid');
+                results.forEach((soft, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'rank-item';
+                    if (soft.isExactMatch) {
+                        div.style.background = 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)';
+                        div.style.borderColor = '#22c55e';
+                    }
+                    div.onclick = () => {
+                        expandedCategories.add(soft.categoryId);
+                        currentSelected = { categoryId: soft.categoryId, softwareId: soft.id };
+                        renderSidebar();
+                        renderSoftwareDetail();
+                        hideDefaultContent();
+                        if (soft.slug) {
+                            const newUrl = window.location.pathname + '?slug=' + encodeURIComponent(soft.slug);
+                            history.pushState({ categoryId: soft.categoryId, softwareId: soft.id }, soft.name, newUrl);
+                        }
+                    };
+
+                    div.innerHTML = `
+                        <div class="rank-header">
+                            <div class="rank-info">
+                                ${soft.software_number ? `<div class="rank-number">#${escapeHtml(soft.software_number)}</div>` : `<div class="rank-number">${index + 1}</div>`}
+                                <div class="rank-name">${escapeHtml(soft.name)}</div>
+                            </div>
+                            ${soft.isExactMatch ? '<span style="background: #22c55e; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">精确匹配</span>' : ''}
+                        </div>
+                        ${soft.description ? `<div class="rank-desc">${escapeHtml(soft.description)}</div>` : ''}
+                        <div style="margin-top: 10px; font-size: 0.85rem; color: #94a3b8;">📁 ${escapeHtml(soft.categoryName)}</div>
+                    `;
+                    grid.appendChild(div);
+                });
+            }
+        }
+
+        // 监听浏览器后退/前进按钮
+        window.addEventListener('popstate', function(event) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
+
+            if (slug) {
+                loadSoftwareBySlug(slug);
+            } else {
+                showDefaultContent();
+            }
+        });
+
+        // 初始化页面
+        init();
+    </script>
+</body>
+</html>

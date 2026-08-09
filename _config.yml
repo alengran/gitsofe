@@ -1,0 +1,52 @@
+# Jekyll 网站配置文件
+title: 软件优选站 - 专业软件下载平台
+description: 软件优选站提供优质电脑软件下载，包括浏览器、办公软件、开发工具、媒体播放器等各类软件，安全无毒，官方下载。
+keywords: 软件下载,免费软件,电脑软件,办公软件,开发工具,浏览器,媒体播放器
+author: 软件优选站
+baseurl: "" # 子路径，例如 /blog
+url: "" # 域名
+
+# 网站设置
+site_logo_text: "🧩 软件优选站"
+site_slogan: "高效 · 纯净 · 专业软件管家"
+copyright_text: "© 2025 软件优选站 | 分享优质电脑软件，提升工作效率。资源来自官方，安全可靠。"
+copyright_link_text: "关于我们"
+copyright_link_url: "#"
+
+# 构建设置
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# 排除文件
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle
+  - vendor/cache
+  - gemfiles
+  - README.md
+  - LICENSE
+  - .gitignore
+  - data-manager.html
+  - data-manager-old.html
+  - USAGE-GUIDE.md
+
+# 数据文件目录
+data_dir: _data
+
+# 布局目录
+layouts_dir: _layouts
+
+# 包含目录
+includes_dir: _includes
+
+# 时区
+timezone: Asia/Shanghai
+
+# 语言
+lang: zh_CN
